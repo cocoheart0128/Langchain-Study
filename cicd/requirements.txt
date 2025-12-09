@@ -20,4 +20,5 @@ pymupdf
 pi_heif
 pdf2image
 langchain-text-splitters
+sentence-transformers
 
