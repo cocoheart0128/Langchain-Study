@@ -1,0 +1,741 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "c7ae198c-68b6-4fab-92f4-0cdb2f75cae7",
+   "metadata": {},
+   "source": [
+    "구글 sdk 사용하기"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "b74d6d66-7872-490b-a0ec-4fdcbf2819ff",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "AI, or Artificial Intelligence, works by enabling computer systems to perform tasks that typically require human intelligence. This isn't a single technology but a broad field encompassing many different approaches and techniques.\n",
+      "\n",
+      "At its core, AI aims to replicate or simulate cognitive functions like learning, problem-solving, decision-making, perception, and language understanding.\n",
+      "\n",
+      "Here's a breakdown of the fundamental principles and components:\n",
+      "\n",
+      "---\n",
+      "\n",
+      "### The Core Idea: Learning from Data\n",
+      "\n",
+      "Most modern AI, particularly the kind you hear about most (like ChatGPT, recommendation systems, facial recognition), operates on the principle of **learning from data**. Instead of being explicitly programmed for every single scenario, AI systems are trained on vast amounts of information to identify patterns, make predictions, or generate responses.\n",
+      "\n",
+      "**Think of it like teaching a child:**\n",
+      "\n",
+      "1.  **Data (Examples):** You show a child many pictures of cats and dogs, labeling each one. This is the **training data**.\n",
+      "2.  **Algorithm (Learning Method):** The child's brain, through trial and error and making connections, figures out what features distinguish a cat from a dog (ears, nose, fur, size, sound). This is the **algorithm** – the set of rules or processes the AI uses to learn.\n",
+      "3.  **Model (Learned Knowledge):** After seeing enough examples, the child develops an internal understanding of \"cat\" and \"dog.\" This internal understanding is the **AI model**.\n",
+      "4.  **Inference (Applying Knowledge):** When the child sees a new animal, they can use their learned knowledge (the model) to say \"That's a cat!\" This is **inference** or **prediction**.\n",
+      "5.  **Feedback (Improvement):** If the child makes a mistake (\"That's a cat!\" when it's a small dog), you correct them, and they learn to refine their understanding. AI models also have feedback loops to improve.\n",
+      "\n",
+      "---\n",
+      "\n",
+      "### Key Components of How AI Works:\n",
+      "\n",
+      "1.  **Data:**\n",
+      "    *   **The Fuel:** AI systems are incredibly data-hungry. The quality, quantity, and relevance of the data directly impact the AI's performance.\n",
+      "    *   **Types:** This can include text, images, audio, video, sensor readings, numerical datasets, etc.\n",
+      "    *   **Labeling:** For many types of AI (especially supervised learning), data needs to be labeled (e.g., an image of a cat marked \"cat\").\n",
+      "\n",
+      "2.  **Algorithms:**\n",
+      "    *   **The Recipes:** These are the sets of mathematical rules and statistical procedures that the AI uses to learn from data.\n",
+      "    *   **Examples:** Linear Regression, Decision Trees, Support Vector Machines, K-Means Clustering, Neural Networks, etc. Each algorithm has strengths for different types of problems.\n",
+      "\n",
+      "3.  **Models:**\n",
+      "    *   **The Brain:** This is the output of the training process – the learned representation of the patterns in the data. It's the \"intelligence\" that the AI system uses to make decisions or predictions.\n",
+      "    *   **Parameters:** Models contain millions or billions of adjustable parameters (like weights and biases in neural networks) that are tuned during training.\n",
+      "\n",
+      "4.  **Training:**\n",
+      "    *   **Learning Phase:** This is where the algorithm processes the data to build the model.\n",
+      "    *   **Optimization:** During training, the model makes predictions, compares them to the actual desired output (if available), calculates an \"error\" (loss function), and then adjusts its internal parameters (using techniques like **gradient descent**) to minimize that error. This process iterates many times.\n",
+      "\n",
+      "5.  **Inference (Prediction/Application):**\n",
+      "    *   **Execution Phase:** Once trained, the model is deployed to make predictions or decisions on new, unseen data.\n",
+      "    *   **Real-world Use:** This is when a facial recognition system identifies a face, a chatbot answers a question, or a recommendation engine suggests a product.\n",
+      "\n",
+      "---\n",
+      "\n",
+      "### Major Paradigms of AI:\n",
+      "\n",
+      "While \"AI\" is broad, here are the main ways it's implemented:\n",
+      "\n",
+      "1.  **Rule-Based AI (Symbolic AI):**\n",
+      "    *   **How it works:** Programmers explicitly define a set of \"if-then\" rules. The AI follows these rules to make decisions.\n",
+      "    *   **Example:** An expert system for medical diagnosis might have rules like \"IF patient has fever AND cough AND positive flu test THEN diagnose flu.\"\n",
+      "    *   **Pros:** Transparent, predictable.\n",
+      "    *   **Cons:** Hard to scale, inflexible to new situations, requires extensive manual programming.\n",
+      "\n",
+      "2.  **Machine Learning (ML):**\n",
+      "    *   **How it works:** Instead of explicit rules, ML algorithms learn patterns and relationships directly from data. This is the dominant approach today.\n",
+      "    *   **Sub-types:**\n",
+      "        *   **Supervised Learning:** Learns from labeled data (input-output pairs).\n",
+      "            *   **Classification:** Predicts a category (e.g., spam/not spam, cat/dog).\n",
+      "            *   **Regression:** Predicts a continuous value (e.g., house price, temperature).\n",
+      "        *   **Unsupervised Learning:** Finds patterns in unlabelled data.\n",
+      "            *   **Clustering:** Groups similar data points (e.g., customer segmentation).\n",
+      "            *   **Dimensionality Reduction:** Simplifies data while retaining important information.\n",
+      "        *   **Reinforcement Learning:** An agent learns by interacting with an environment, receiving rewards for desired actions and penalties for undesired ones (e.g., AI playing games, robotics).\n",
+      "\n",
+      "3.  **Deep Learning (DL):**\n",
+      "    *   **How it works:** A specialized subset of Machine Learning that uses **Artificial Neural Networks** with many layers (hence \"deep\"). These networks are inspired by the structure of the human brain.\n",
+      "    *   **Neural Networks:** Consist of interconnected \"neurons\" (mathematical functions) organized in layers. Each connection has a \"weight\" that is adjusted during training.\n",
+      "    *   **Key Advantage:** Can automatically learn complex features from raw data, eliminating the need for manual feature engineering.\n",
+      "    *   **Architectures:**\n",
+      "        *   **Convolutional Neural Networks (CNNs):** Excellent for image and video processing.\n",
+      "        *   **Recurrent Neural Networks (RNNs) & Transformers:** Excellent for sequential data like text, speech, and time series (used in large language models like GPT).\n",
+      "\n",
+      "---\n",
+      "\n",
+      "### The Process in Action (Simplified):\n",
+      "\n",
+      "1.  **Data Collection:** Gather a massive dataset relevant to the task (e.g., millions of images of objects).\n",
+      "2.  **Data Preprocessing:** Clean, format, and prepare the data for the algorithm (e.g., resizing images, normalizing pixel values).\n",
+      "3.  **Model Selection:** Choose an appropriate algorithm or neural network architecture for the task.\n",
+      "4.  **Training:** Feed the preprocessed data to the algorithm. The algorithm adjusts its internal parameters (weights and biases) repeatedly to minimize errors between its predictions and the actual labels. This often requires massive computational power (GPUs).\n",
+      "5.  **Evaluation:** Test the trained model on a separate dataset it has never seen before to measure its performance and ensure it generalizes well to new data.\n",
+      "6.  **Deployment:** Integrate the trained model into an application or system to perform its intended task (e.g., an app that identifies plants from photos).\n",
+      "7.  **Monitoring & Iteration:** Continuously monitor the model's performance in the real world and retrain or update it with new data to improve accuracy over time.\n",
+      "\n",
+      "---\n",
+      "\n",
+      "In essence, AI works by using sophisticated algorithms to learn from examples, identify patterns, and then apply that learned knowledge to new, unseen situations, constantly striving to perform tasks in a way that mimics human intelligence.\n"
+     ]
+    }
+   ],
+   "source": [
+    "from google import genai\n",
+    "from google.genai import types\n",
+    "\n",
+    "client = genai.Client()\n",
+    "\n",
+    "response = client.models.generate_content(\n",
+    "    model=\"gemini-2.5-flash\",\n",
+    "    contents=\"How does AI work?\"\n",
+    ")\n",
+    "\n",
+    "print(response.text)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "61c406e1-3e77-43e9-a60c-f5e2d523aff7",
+   "metadata": {},
+   "source": [
+    "langchain gemimi 사용해보기"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "61a9ef60-6658-4f1d-a0ca-ec6228d20cc8",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "AIMessage(content='자연어처리(NLP, Natural Language Processing)는 컴퓨터가 **인간의 언어(자연어)**를 **이해하고, 처리하며, 생성**하는 기술을 말합니다.\\n\\n우리가 일상에서 사용하는 말이나 글(한국어, 영어 등)은 컴퓨터가 직접 이해하기 어렵습니다. NLP는 이 **인간의 언어를 컴퓨터가 분석하고 의미를 파악**할 수 있도록 돕는 다리 역할을 합니다.\\n\\n**간단히 말해, NLP는 컴퓨터가 마치 사람처럼 언어를 듣고, 읽고, 이해하고, 말하고, 쓰는 것을 목표로 합니다.**\\n\\n---\\n\\n**주요 목표 및 역할:**\\n\\n1.  **언어 이해 (Natural Language Understanding, NLU):**\\n    *   단어의 의미, 문장의 구조, 문맥 등을 파악하여 인간의 언어가 무엇을 말하는지 이해합니다.\\n    *   예: \"사과\"라는 단어가 과일인지, 사죄인지 문맥에 따라 구분하는 것.\\n\\n2.  **언어 생성 (Natural Language Generation, NLG):**\\n    *   컴퓨터가 이해한 정보를 바탕으로 사람처럼 자연스러운 문장을 만들어냅니다.\\n    *   예: 기사 요약문 작성, 챗봇의 답변 생성.\\n\\n---\\n\\n**어디에 사용될까요? (일상생활 속 NLP 예시)**\\n\\n*   **검색 엔진:** 우리가 입력한 검색어를 이해하고 가장 관련성 높은 정보를 찾아줍니다.\\n*   **번역 앱:** 구글 번역기처럼 다른 언어로 바꿔줍니다.\\n*   **음성 비서:** 시리, 빅스비, 알렉사처럼 말하는 것을 듣고 명령을 수행합니다.\\n*   **챗봇:** 고객 상담 챗봇이 질문을 이해하고 답변을 제공합니다.\\n*   **스팸 메일 필터:** 메일 내용을 분석하여 스팸 메일을 걸러냅니다.\\n*   **맞춤법 및 문법 검사:** 작성한 글의 오류를 찾아 수정해줍니다.\\n*   **감성 분석:** 댓글이나 리뷰에서 긍정적인지 부정적인지 감성을 파악합니다.\\n*   **텍스트 요약:** 긴 문서를 핵심 내용만 요약해줍니다.\\n\\n---\\n\\n결론적으로, 자연어처리는 컴퓨터가 인간의 언어를 이해하고 활용하여 우리 삶을 더 편리하고 풍요롭게 만드는 핵심 기술이라고 할 수 있습니다.', additional_kwargs={}, response_metadata={'finish_reason': 'STOP', 'model_name': 'gemini-2.5-flash', 'safety_ratings': [], 'model_provider': 'google_genai'}, id='lc_run--019b0165-7616-77d3-a940-05015ff3c7ea-0', usage_metadata={'input_tokens': 14, 'output_tokens': 1759, 'total_tokens': 1773, 'input_token_details': {'cache_read': 0}, 'output_token_details': {'reasoning': 1235}})"
+      ]
+     },
+     "execution_count": 2,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "from langchain_google_genai import ChatGoogleGenerativeAI\n",
+    "\n",
+    "# ChatGoogleGenerativeAI 언어 모델을 초기화합니다.\n",
+    "llm = ChatGoogleGenerativeAI(model=\"gemini-2.5-flash\")\n",
+    "\n",
+    "# 프롬프트를 전달하여 결과를 생성합니다.\n",
+    "answer = llm.invoke(\"자연어처리에 대해서 간략히 설명해 줘\")\n",
+    "\n",
+    "# 결과를 출력합니다.\n",
+    "answer"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a968679d-15bc-4d71-b92d-d28696e758d7",
+   "metadata": {},
+   "source": [
+    "체인 만들기"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "5f74292a-4feb-4d32-9d4c-477d85edd2d8",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "AIMessage(content=\"안녕하세요! 백과사전으로서 데이터 엔지니어에 대해 자세히 설명해 드리겠습니다.\\n\\n---\\n\\n### **데이터 엔지니어(Data Engineer)**\\n\\n**데이터 엔지니어**는 기업이 데이터를 효과적으로 수집, 저장, 처리, 관리하고, 이를 분석 및 활용할 수 있도록 **데이터 인프라와 파이프라인을 구축하고 유지보수하는 전문가**입니다. 즉, 데이터 과학자나 데이터 분석가가 데이터를 가지고 작업하기 전에, 깨끗하고 사용 가능한 형태로 데이터를 준비하고 접근 가능하게 만드는 '데이터 기반'을 다지는 역할을 수행합니다.\\n\\n#### **1. 주요 역할 및 업무**\\n\\n데이터 엔지니어의 업무는 데이터를 '생산'하는 것부터 '소비'되는 모든 과정에 걸쳐 광범위하게 이루어집니다.\\n\\n*   **데이터 파이프라인 구축 및 관리:** 다양한 소스(웹사이트, 앱, 센서, 외부 API 등)에서 데이터를 수집하여 중앙 집중식 저장소로 가져오는 자동화된 시스템(데이터 파이프라인)을 설계, 구축, 운영합니다. 이 과정에서 ETL(Extract, Transform, Load) 또는 ELT(Extract, Load, Transform) 프로세스를 구현합니다.\\n*   **데이터 저장 시스템 설계 및 구현:** 데이터 웨어하우스(Data Warehouse), 데이터 레이크(Data Lake), 데이터 마트(Data Mart) 등 기업의 목적에 맞는 최적의 데이터 저장 구조를 설계하고 구현합니다.\\n*   **데이터 품질 및 거버넌스 확보:** 데이터의 정확성, 일관성, 완전성 등을 보장하기 위한 데이터 품질 관리 시스템을 구축하고, 데이터 사용 및 접근에 대한 정책(데이터 거버넌스)을 정의하고 구현합니다.\\n*   **데이터 보안 및 접근 제어:** 민감한 데이터의 보안을 유지하고, 필요한 사람만 데이터에 접근할 수 있도록 권한 관리 시스템을 구축합니다.\\n*   **데이터 인프라 최적화 및 유지보수:** 데이터 시스템의 성능을 최적화하고, 확장성 및 안정성을 확보하여 효율적인 데이터 처리가 이루어지도록 지속적으로 모니터링하고 유지보수합니다. 문제 발생 시 해결합니다.\\n*   **협업:** 데이터 과학자, 데이터 분석가, 소프트웨어 엔지니어 등 다양한 팀과 협력하여 데이터 요구사항을 이해하고, 이를 충족하는 솔루션을 제공합니다.\\n\\n#### **2. 주요 사용 기술 및 도구**\\n\\n데이터 엔지니어는 다음과 같은 다양한 기술 스택을 활용합니다.\\n\\n*   **프로그래밍 언어:** Python (가장 일반적), Java, Scala 등\\n*   **데이터베이스:**\\n    *   **관계형 데이터베이스(RDBMS):** MySQL, PostgreSQL, Oracle, MS SQL Server\\n    *   **NoSQL 데이터베이스:** MongoDB, Cassandra, DynamoDB\\n*   **데이터 웨어하우스/레이크 솔루션:** Snowflake, Amazon Redshift, Google BigQuery, Apache Hive, Delta Lake, Apache Iceberg\\n*   **빅데이터 프레임워크:** Apache Spark, Hadoop, Apache Kafka, Flink\\n*   **클라우드 플랫폼:**\\n    *   **AWS:** S3, EC2, Lambda, Glue, Kinesis, EMR, Redshift, Athena\\n    *   **Azure:** Data Lake Storage, Data Factory, Databricks, Synapse Analytics\\n    *   **GCP:** Cloud Storage, Dataflow, Dataproc, BigQuery\\n*   **데이터 오케스트레이션 도구:** Apache Airflow, Prefect, dbt (data build tool)\\n*   **컨테이너 및 가상화:** Docker, Kubernetes\\n\\n#### **3. 필요한 역량**\\n\\n*   **강력한 프로그래밍 능력:** 특히 Python에 대한 깊은 이해와 활용 능력.\\n*   **데이터베이스 지식:** 관계형 및 비관계형 데이터베이스에 대한 설계, 관리, 쿼리 최적화 능력.\\n*   **빅데이터 기술 이해:** 대용량 데이터를 처리하는 분산 시스템(Hadoop, Spark 등)에 대한 이해.\\n*   **클라우드 플랫폼 경험:** 하나 이상의 주요 클라우드 플랫폼(AWS, Azure, GCP) 활용 경험.\\n*   **데이터 모델링 능력:** 데이터를 효율적으로 저장하고 분석할 수 있는 데이터 모델을 설계하는 능력.\\n*   **문제 해결 능력:** 복잡한 데이터 시스템에서 발생하는 문제를 진단하고 해결하는 능력.\\n*   **꼼꼼함과 책임감:** 데이터의 정확성과 신뢰성을 보장하기 위한 꼼꼼함.\\n*   **커뮤니케이션 능력:** 비기술 직군과의 협업을 위한 명확한 의사소통 능력.\\n\\n#### **4. 데이터 엔지니어의 중요성**\\n\\n데이터 엔지니어는 현대 기업에서 데이터 기반 의사결정의 핵심적인 역할을 수행합니다.\\n\\n*   **데이터 가치 창출의 필수 요소:** 아무리 좋은 분석 도구나 인공지능 모델도 양질의 데이터 없이는 무용지물입니다. 데이터 엔지니어는 데이터가 가치를 만들어낼 수 있는 깨끗하고 정제된 상태로 준비하는 역할을 합니다.\\n*   **데이터 과학자 및 분석가 지원:** 데이터 과학자와 분석가가 복잡한 데이터 준비 작업에 시간을 낭비하지 않고 핵심 업무(모델링, 분석)에 집중할 수 있도록 지원합니다.\\n*   **시스템 안정성 및 효율성 보장:** 안정적이고 효율적인 데이터 인프라를 구축하여 기업의 데이터 처리 비용을 절감하고, 실시간에 가까운 데이터 분석을 가능하게 합니다.\\n\\n---\\n\\n결론적으로 데이터 엔지니어는 기업의 '데이터 혈관'과 같은 역할을 수행하며, 데이터가 원활하게 흐르고 활용될 수 있도록 근본적인 기반을 다지는 핵심 전문가라고 할 수 있습니다.\", additional_kwargs={}, response_metadata={'finish_reason': 'STOP', 'model_name': 'gemini-2.5-flash', 'safety_ratings': [], 'model_provider': 'google_genai'}, id='lc_run--019b016d-5b9a-71f1-b334-9c8bcc6ebe8c-0', usage_metadata={'input_tokens': 27, 'output_tokens': 2673, 'total_tokens': 2700, 'input_token_details': {'cache_read': 0}, 'output_token_details': {'reasoning': 1434}})"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "from langchain_core.prompts import ChatPromptTemplate\n",
+    "\n",
+    "llm = ChatGoogleGenerativeAI(model=\"gemini-2.5-flash\")\n",
+    "prompt = ChatPromptTemplate.from_template(\"너는 백과서전이야. 내 질문 대답해. <Question>: {input}\")\n",
+    "chain = prompt | llm\n",
+    "chain.invoke({\"input\":\"데이터 엔지니어 뭐하는 사람이야?\"})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "3b55d6db-e1f7-4802-9829-c227baf8ac42",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"지구의 자전 주기는 일반적으로 두 가지 방식으로 설명할 수 있습니다:\\n\\n1.  **태양일 (Solar Day):**\\n    *   우리가 일상생활에서 사용하는 '하루'의 개념으로, 태양이 하늘의 같은 위치(예: 정오)에 다시 오기까지 걸리는 시간입니다.\\n    *   이는 약 **24시간**입니다.\\n    *   지구가 자전하면서 동시에 태양 주위를 공전하기 때문에, 태양의 위치가 다시 같아지려면 지구는 360도보다 조금 더 자전해야 합니다.\\n\\n2.  **항성일 (Sidereal Day):**\\n    *   지구가 먼 별들에 대해 정확히 360도를 자전하는 데 걸리는 시간입니다. 이것이 지구의 실제 자전 주기입니다.\\n    *   이는 약 **23시간 56분 4.091초**입니다.\\n    *   항성일은 태양일보다 약 4분 더 짧습니다. 이 4분의 차이는 지구가 태양 주위를 공전함에 따라 발생하는 것입니다.\\n\\n천문학적으로 볼 때, 지구의 진정한 자전 주기는 항성일인 **23시간 56분 4.091초**입니다.\""
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "from langchain_core.prompts import ChatPromptTemplate\n",
+    "from langchain_core.output_parsers import StrOutputParser\n",
+    "\n",
+    "# prompt + model + output parser\n",
+    "prompt = ChatPromptTemplate.from_template(\"You are an expert in astronomy. Answer the question. <Question>: {input}\")\n",
+    "llm = ChatGoogleGenerativeAI(model=\"gemini-2.5-flash\")\n",
+    "output_parser = StrOutputParser()\n",
+    "# LCEL chaining\n",
+    "chain = prompt | llm | output_parser\n",
+    "# chain 호출\n",
+    "chain.invoke({\"input\": \"지구의 자전 주기는?\"})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "17e348c7-d108-4634-bee0-2beab41e5e58",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'**미래** translates to **future** in English.'"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "from langchain_core.prompts import ChatPromptTemplate\n",
+    "from langchain_core.output_parsers import StrOutputParser\n",
+    "from langchain_google_genai import ChatGoogleGenerativeAI\n",
+    "prompt1 = ChatPromptTemplate.from_template(\"translates {korean_word} to English.\")\n",
+    "prompt2 = ChatPromptTemplate.from_template(\n",
+    "    \"explain {english_word} using oxford dictionary to me in Korean.\"\n",
+    ")\n",
+    "\n",
+    "llm = ChatGoogleGenerativeAI(model=\"gemini-2.5-flash\")\n",
+    "\n",
+    "chain1 = prompt1 | llm | StrOutputParser()\n",
+    "\n",
+    "chain1.invoke({\"korean_word\":\"미래\"})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "f001829f-9e3f-476a-b3fb-c7f867db63a2",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'네, 맞습니다. 한국어 \"미래\"의 영어 번역은 **\"future\"**가 정확합니다.\\n\\n옥스퍼드 사전(Oxford Dictionary)에 따르면 \"future\"는 다음과 같이 정의됩니다:\\n\\n*   **\"The time that will come after the present or the events that will happen then.\"**\\n    (현재 이후에 올 시간 또는 그때 일어날 일들.)\\n\\n이 정의를 한국어 \"미래\"의 의미와 비교해보면 완벽하게 일치합니다.\\n\\n*   **미래 (未來):**\\n    *   아직 오지 아니한 때.\\n    *   앞으로 올 일.\\n\\n**결론적으로:**\\n옥스퍼드 사전에서 정의하는 \"future\"의 의미와 한국어 \"미래\"의 의미는 \\'현재 이후에 다가올 시간\\' 또는 \\'앞으로 일어날 일\\'이라는 개념을 정확히 공유합니다. 따라서 \"미래\"와 \"future\"는 의미론적으로 완전히 일치하는 번역어입니다.\\n\\n**예시:**\\n\\n*   **미래**를 예측하다. (To predict the **future**.)\\n*   밝은 **미래**를 꿈꾸다. (To dream of a bright **future**.)\\n*   우리의 **미래**는 어떻게 될까? (What will our **future** be like?)'"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "chain2 = ({\"english_word\": chain1} | prompt2 | llm | StrOutputParser() )\n",
+    "chain2.invoke({\"korean_word\":\"미래\"})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "0a397295-0f02-43e5-a8dc-807b1b56e350",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "input_variables=['age', 'name'] input_types={} partial_variables={} template='안녕하세요, 제 이름은 {name}이고, 나이는 {age}살입니다.'\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "'안녕하세요, 제 이름은 홍길동이고, 나이는 30살입니다.'"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "from langchain_core.prompts import PromptTemplate\n",
+    "\n",
+    "# 'name'과 'age'라는 두 개의 변수를 사용하는 프롬프트 템플릿을 정의\n",
+    "template_text = \"안녕하세요, 제 이름은 {name}이고, 나이는 {age}살입니다.\"\n",
+    "\n",
+    "# PromptTemplate 인스턴스를 생성\n",
+    "prompt_template = PromptTemplate.from_template(template_text)\n",
+    "print(prompt_template)\n",
+    "# 템플릿에 값을 채워서 프롬프트를 완성\n",
+    "filled_prompt = prompt_template.format(name=\"홍길동\", age=30)\n",
+    "\n",
+    "filled_prompt"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "c84c1104-58eb-4cb4-bd11-a17c20746d72",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "PromptTemplate(input_variables=['age', 'language', 'name'], input_types={}, partial_variables={}, template='안녕하세요, 제 이름은 {name}이고, 나이는 {age}살입니다.\\n\\n아버지를 아버지라 부를 수 없습니다.\\n\\n{language}로 번역해주세요.')"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 문자열 템플릿 결합 (PromptTemplate + PromptTemplate + 문자열)\n",
+    "combined_prompt = (\n",
+    "              prompt_template\n",
+    "              + PromptTemplate.from_template(\"\\n\\n아버지를 아버지라 부를 수 없습니다.\")\n",
+    "              + \"\\n\\n{language}로 번역해주세요.\"\n",
+    ")\n",
+    "\n",
+    "combined_prompt\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "c0a67f38-e6cd-4cb7-bcff-e9a5b43c8793",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'안녕하세요, 제 이름은 홍길동이고, 나이는 30살입니다.\\n\\n아버지를 아버지라 부를 수 없습니다.\\n\\n영어로 번역해주세요.'"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "combined_prompt.format(name=\"홍길동\", age=30, language=\"영어\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "0efb8435-1be5-4780-96c8-a027c0c17ea5",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"Hello, my name is Hong Gildong, and I am 30 years old.\\nI cannot call my father 'father'.\""
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "llm = ChatGoogleGenerativeAI(model=\"gemini-2.5-flash\")\n",
+    "output_parser = StrOutputParser()\n",
+    "# LCEL chaining\n",
+    "chain = combined_prompt | llm | output_parser\n",
+    "# chain 호출\n",
+    "chain.invoke({\"age\":30, \"language\":\"영어\", \"name\":\"홍길동\"})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "9aad9815-0395-4ddc-a8f9-ba8a875598da",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[SystemMessage(content=\"이 시스템은 천문학 질문에 답변할 수 있습니다.다른 분야 질문이 들어오는 경우 '질문이 범위 초과하여 대답할수 없습니다'라고 대답해줘 \", additional_kwargs={}, response_metadata={}),\n",
+       " HumanMessage(content='태양계에서 가장 큰 행성은 무엇인가요?', additional_kwargs={}, response_metadata={})]"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 2-튜플 형태의 메시지 목록으로 프롬프트 생성 (type, content)\n",
+    "\n",
+    "from langchain_core.prompts import ChatPromptTemplate\n",
+    "llm = ChatGoogleGenerativeAI(model=\"gemini-2.5-flash\")\n",
+    "chat_prompt = ChatPromptTemplate.from_messages([\n",
+    "    (\"system\", \"이 시스템은 천문학 질문에 답변할 수 있습니다.다른 분야 질문이 들어오는 경우 '질문이 범위 초과하여 대답할수 없습니다'라고 대답해줘 \"),\n",
+    "    (\"user\", \"{user_input}\"),\n",
+    "])\n",
+    "\n",
+    "messages = chat_prompt.format_messages(user_input=\"태양계에서 가장 큰 행성은 무엇인가요?\")\n",
+    "messages"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "40e60d36-4588-449a-84de-d681280c0821",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'태양계에서 가장 큰 행성은 **목성**입니다.'"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "chain = chat_prompt | llm | StrOutputParser()\n",
+    "chain.invoke({\"user_input\": \"태양계에서 가장 큰 행성은 무엇인가요?\"})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "bfa63506-c5b1-4ac3-bebd-db642a3ebd80",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'저는 질문하신 내용이 천문학 분야에 속하는지 판단할 수 없습니다. 따라서 답변해 드릴 수 없습니다.'"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "chain.invoke({\"user_input\": \"데이터엔지니어 어떤 사람이야?\"})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "33e23def-5b48-4ff7-8531-1c02382d56da",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from langchain_core.prompts import PromptTemplate\n",
+    "\n",
+    "example_prompt = PromptTemplate.from_template(\"질문: {question}\\n{answer}\")\n",
+    "examples = [\n",
+    "    {\n",
+    "        \"question\": \"지구의 대기 중 가장 많은 비율을 차지하는 기체는 무엇인가요?\",\n",
+    "        \"answer\": \"지구 대기의 약 78%를 차지하는 질소입니다.\"\n",
+    "    },\n",
+    "    {\n",
+    "        \"question\": \"광합성에 필요한 주요 요소들은 무엇인가요?\",\n",
+    "        \"answer\": \"광합성에 필요한 주요 요소는 빛, 이산화탄소, 물입니다.\"\n",
+    "    },\n",
+    "    {\n",
+    "        \"question\": \"피타고라스 정리를 설명해주세요.\",\n",
+    "        \"answer\": \"피타고라스 정리는 직각삼각형에서 빗변의 제곱이 다른 두 변의 제곱의 합과 같다는 것입니다.\"\n",
+    "    },\n",
+    "    {\n",
+    "        \"question\": \"지구의 자전 주기는 얼마인가요?\",\n",
+    "        \"answer\": \"지구의 자전 주기는 약 24시간(정확히는 23시간 56분 4초)입니다.\"\n",
+    "    },\n",
+    "    {\n",
+    "        \"question\": \"DNA의 기본 구조를 간단히 설명해주세요.\",\n",
+    "        \"answer\": \"DNA는 두 개의 폴리뉴클레오티드 사슬이 이중 나선 구조를 이루고 있습니다.\"\n",
+    "    },\n",
+    "    {\n",
+    "        \"question\": \"원주율(π)의 정의는 무엇인가요?\",\n",
+    "        \"answer\": \"원주율(π)은 원의 지름에 대한 원의 둘레의 비율입니다.\"\n",
+    "    }\n",
+    "]\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "294dbca1-31b5-48f9-9be2-e57da8e42883",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "질문: 지구의 대기 중 가장 많은 비율을 차지하는 기체는 무엇인가요?\n",
+      "지구 대기의 약 78%를 차지하는 질소입니다.\n",
+      "\n",
+      "질문: 광합성에 필요한 주요 요소들은 무엇인가요?\n",
+      "광합성에 필요한 주요 요소는 빛, 이산화탄소, 물입니다.\n",
+      "\n",
+      "질문: 피타고라스 정리를 설명해주세요.\n",
+      "피타고라스 정리는 직각삼각형에서 빗변의 제곱이 다른 두 변의 제곱의 합과 같다는 것입니다.\n",
+      "\n",
+      "질문: 지구의 자전 주기는 얼마인가요?\n",
+      "지구의 자전 주기는 약 24시간(정확히는 23시간 56분 4초)입니다.\n",
+      "\n",
+      "질문: DNA의 기본 구조를 간단히 설명해주세요.\n",
+      "DNA는 두 개의 폴리뉴클레오티드 사슬이 이중 나선 구조를 이루고 있습니다.\n",
+      "\n",
+      "질문: 원주율(π)의 정의는 무엇인가요?\n",
+      "원주율(π)은 원의 지름에 대한 원의 둘레의 비율입니다.\n",
+      "\n",
+      "질문: 화성의 표면이 붉은 이유는 무엇인가요?\n"
+     ]
+    }
+   ],
+   "source": [
+    "from langchain_core.prompts import FewShotPromptTemplate\n",
+    "\n",
+    "# FewShotPromptTemplate을 생성합니다.\n",
+    "prompt = FewShotPromptTemplate(\n",
+    "    examples=examples,              # 사용할 예제들\n",
+    "    example_prompt=example_prompt,  # 예제 포맷팅에 사용할 템플릿\n",
+    "    suffix=\"질문: {input}\",          # 예제 뒤에 추가될 접미사\n",
+    "    input_variables=[\"input\"],      # 입력 변수 지정\n",
+    ")\n",
+    "\n",
+    "# 새로운 질문에 대한 프롬프트를 생성하고 출력합니다.\n",
+    "print(prompt.invoke({\"input\": \"화성의 표면이 붉은 이유는 무엇인가요?\"}).to_string())\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "02d9f879-213f-4eae-b2ec-e43ff3cffe5b",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Your response should be a list of comma separated values, eg: `foo, bar, baz` or `foo,bar,baz`\n"
+     ]
+    }
+   ],
+   "source": [
+    "from langchain_core.output_parsers import CommaSeparatedListOutputParser\n",
+    "\n",
+    "output_parser = CommaSeparatedListOutputParser()\n",
+    "format_instructions = output_parser.get_format_instructions()\n",
+    "\n",
+    "print(format_instructions)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "id": "3095ea08-ea4f-4c54-a799-c2fe1516d6a5",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['Bulgogi', 'Bibimbap', 'Kimchi Jjigae', 'Tteokbokki', 'Samgyeopsal']"
+      ]
+     },
+     "execution_count": 25,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "from langchain_core.prompts import PromptTemplate\n",
+    "\n",
+    "prompt = PromptTemplate(\n",
+    "    template=\"List five {subject}.\\n{format_instructions}\",\n",
+    "    input_variables=[\"subject\"],\n",
+    "    partial_variables={\"format_instructions\": format_instructions},\n",
+    ")\n",
+    "\n",
+    "llm = ChatGoogleGenerativeAI(model=\"gemini-2.5-flash\",temperature=0)\n",
+    "\n",
+    "chain = prompt | llm | output_parser\n",
+    "\n",
+    "chain.invoke({\"subject\": \"popular Korean cusine\"})\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "id": "41d4c825-8d4e-4415-82a2-a7f0fdc8f62a",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "STRICT OUTPUT FORMAT:\n",
+      "- Return only the JSON value that conforms to the schema. Do not include any additional text, explanations, headings, or separators.\n",
+      "- Do not wrap the JSON in Markdown or code fences (no ``` or ```json).\n",
+      "- Do not prepend or append any text (e.g., do not write \"Here is the JSON:\").\n",
+      "- The response must be a single top-level JSON value exactly as required by the schema (object/array/etc.), with no trailing commas or comments.\n",
+      "\n",
+      "The output should be formatted as a JSON instance that conforms to the JSON schema below.\n",
+      "\n",
+      "As an example, for the schema {\"properties\": {\"foo\": {\"title\": \"Foo\", \"description\": \"a list of strings\", \"type\": \"array\", \"items\": {\"type\": \"string\"}}}, \"required\": [\"foo\"]} the object {\"foo\": [\"bar\", \"baz\"]} is a well-formatted instance of the schema. The object {\"properties\": {\"foo\": [\"bar\", \"baz\"]}} is not well-formatted.\n",
+      "\n",
+      "Here is the output schema (shown in a code block for readability only — do not include any backticks or Markdown in your output):\n",
+      "```\n",
+      "{\"properties\": {\"name\": {\"description\": \"name of a cusine\", \"title\": \"Name\", \"type\": \"string\"}, \"recipe\": {\"description\": \"recipe to cook the cusine\", \"title\": \"Recipe\", \"type\": \"string\"}}, \"required\": [\"name\", \"recipe\"]}\n",
+      "```\n"
+     ]
+    }
+   ],
+   "source": [
+    "from langchain_core.output_parsers import JsonOutputParser\n",
+    "from pydantic import BaseModel, Field\n",
+    "\n",
+    "# 자료구조 정의 (pydantic)\n",
+    "class CusineRecipe(BaseModel):\n",
+    "    name: str = Field(description=\"name of a cusine\")\n",
+    "    recipe: str = Field(description=\"recipe to cook the cusine\")\n",
+    "\n",
+    "# 출력 파서 정의\n",
+    "output_parser = JsonOutputParser(pydantic_object=CusineRecipe)\n",
+    "\n",
+    "format_instructions = output_parser.get_format_instructions()\n",
+    "\n",
+    "print(format_instructions)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "79dca5f7-d822-4a91-b972-64250418766d",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "input_variables=['query'] input_types={} partial_variables={'format_instructions': 'STRICT OUTPUT FORMAT:\\n- Return only the JSON value that conforms to the schema. Do not include any additional text, explanations, headings, or separators.\\n- Do not wrap the JSON in Markdown or code fences (no ``` or ```json).\\n- Do not prepend or append any text (e.g., do not write \"Here is the JSON:\").\\n- The response must be a single top-level JSON value exactly as required by the schema (object/array/etc.), with no trailing commas or comments.\\n\\nThe output should be formatted as a JSON instance that conforms to the JSON schema below.\\n\\nAs an example, for the schema {\"properties\": {\"foo\": {\"title\": \"Foo\", \"description\": \"a list of strings\", \"type\": \"array\", \"items\": {\"type\": \"string\"}}}, \"required\": [\"foo\"]} the object {\"foo\": [\"bar\", \"baz\"]} is a well-formatted instance of the schema. The object {\"properties\": {\"foo\": [\"bar\", \"baz\"]}} is not well-formatted.\\n\\nHere is the output schema (shown in a code block for readability only — do not include any backticks or Markdown in your output):\\n```\\n{\"properties\": {\"name\": {\"description\": \"name of a cusine\", \"title\": \"Name\", \"type\": \"string\"}, \"recipe\": {\"description\": \"recipe to cook the cusine\", \"title\": \"Recipe\", \"type\": \"string\"}}, \"required\": [\"name\", \"recipe\"]}\\n```'} template='Answer the user query.\\n{format_instructions}\\n{query}\\n'\n"
+     ]
+    }
+   ],
+   "source": [
+    "# prompt 구성\n",
+    "prompt = PromptTemplate(\n",
+    "    template=\"Answer the user query.\\n{format_instructions}\\n{query}\\n\",\n",
+    "    input_variables=[\"query\"],\n",
+    "    partial_variables={\"format_instructions\": format_instructions},\n",
+    ")\n",
+    "\n",
+    "print(prompt)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "id": "6cc9e79d-f002-4edd-b5d3-9d42c5fe98a8",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'name': 'Bibimbap',\n",
+       " 'recipe': '1. Cook rice. 2. Prepare toppings: sautéed vegetables (spinach, carrots, bean sprouts, mushrooms), seasoned beef or tofu, a fried egg. 3. Arrange toppings over the cooked rice in a bowl. 4. Serve with gochujang (Korean chili paste) and sesame oil.'}"
+      ]
+     },
+     "execution_count": 32,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "llm = ChatGoogleGenerativeAI(model=\"gemini-2.5-flash-lite\",temperature=0)\n",
+    "chain = prompt | llm | output_parser\n",
+    "\n",
+    "chain.invoke({\"query\": \"Let me know how to cook Bibimbap\"})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "91569bf4-3fa7-4eec-8a37-93fb013d08df",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.14"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

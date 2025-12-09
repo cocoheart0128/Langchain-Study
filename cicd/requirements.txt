@@ -1,0 +1,17 @@
+langchain
+google-genai
+python-dotenv
+langchain-community
+langgraph
+pydantic
+fastapi
+uvicorn
+requests
+tiktoken
+google-genai
+jupyterlab
+ipykernel
+langchain-huggingface
+langchain-google-genai
+
+

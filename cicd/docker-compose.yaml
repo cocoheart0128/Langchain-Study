@@ -1,0 +1,16 @@
+version: "3.11"
+
+services:
+  jupyter-langchain:
+    build:
+      context: ..
+      dockerfile: cicd/Dockerfile
+    container_name: jupyter-langchain
+    env_file: .env
+    working_dir: /workspace
+    volumes:
+      - ../:/workspace
+      - ../:/data
+    ports:
+      - "8888:8888"
+    restart: always
