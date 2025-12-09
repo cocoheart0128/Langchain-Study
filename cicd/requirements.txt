@@ -13,5 +13,11 @@ jupyterlab
 ipykernel
 langchain-huggingface
 langchain-google-genai
-
+pypdf
+unstructured
+unstructured-inference 
+pymupdf
+pi_heif
+pdf2image
+langchain-text-splitters
 
